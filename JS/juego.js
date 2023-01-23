@@ -43,7 +43,7 @@ class Marty {
     }
 
     adelate (){
-        if( this.x < ){
+        if( this.x < 1 ){
         this.x += this.velocidad 
         }
         this.img = naveD
