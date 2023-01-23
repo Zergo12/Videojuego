@@ -50,7 +50,7 @@ const layerGround = new Layer (road, 0.8, 640);
 const layerPalms = new Layer (palms, 0.5, 195);
 const layerPalmsBack = new Layer (palmsBack, 0.3, 450);
 const layerMountains = new Layer (mountains, 0.2, 140);
-const layerSun = new Layer (back, 0, -5);
+const layerSun = new Layer (back, 0, -25);
 
 const objetosJuego = [layerSun, layerMountains, layerPalmsBack, layerPalms, layerGround]
 function animate () {
@@ -66,4 +66,4 @@ animate()
 
 const inicio = new Audio ("../Assets/Sonidos/music/synthwave-palms/synthwave-palms.mp3")
 
-inicio.play()
+// inicio.play()
