@@ -4,7 +4,7 @@ const ctx = lienzo.getContext("2d")
 
 
 // Carga de imagenes
-const heart = new Image ()
+const pizza = new Image ()
 heart.src = "https://toppng.com/public/uploads/thumbnail/heart-pixelart-game-retro-red-minecraft-life-pixel-corazon-de-8-bits-11562936212skverdpytt.png"
 
 // Enemigos
@@ -46,14 +46,14 @@ class Marty {
         if( this.x < 1 ){
         this.x += this.velocidad 
         }
-        this.img = naveD
+        this.img = martyD
     }
 
     atras(){
         if(this.x > 0){
             this.x -= this.velocidad
         }
-        this.img = naveI
+        this.img = martyI
     }
 
     salto(){
@@ -98,7 +98,7 @@ class Robot {
     }
 }
 
-class Bombda {
+class Bomba {
     constructor(x,y){
         this.x = x;
         this.y = y;
