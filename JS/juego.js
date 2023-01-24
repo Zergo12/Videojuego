@@ -1,6 +1,8 @@
-const cuadro = document.getElementById("retroWave")
+const cuadro = document.getElementById("cuadroJuego")
+const ctx = cuadro.getContext("2d")
+const menu =document.querySelector(".botones")
 
-
+const gameOver = document.querySelector (".gameOver")
 
 // Carga de imagenes
 const heart = new Image ()
@@ -29,6 +31,9 @@ bomb.src = "../Assets/Imagenes/bomba1.png"
 
 const skull = new Image ()
 skull.src = "../Assets/Imagenes/Skull.png"
+
+const pepsi = new Image ()
+pepsi.src = "../Assets/Imagenes/Pepsi.com.png"
 
 
 // Biff
@@ -65,6 +70,7 @@ class Marty {
         this.kills = 0;
         this.vidas = 4
         this.img = martyD
+        this.pepsi = 0
 
     }
 
@@ -232,6 +238,10 @@ function empezarJuego (){
         // Dibuja Marty
         marty.dibujarse()
 
+        // Game Over
+        if (marty.vidas === 0){
+            setGameOver()
+        }
 
         // Colision Marty vs Biff
         biffs.forEach((biff, indexBiff)  => {
@@ -305,10 +315,6 @@ function empezarJuego (){
             bomba.dibujarse()
         })
 
-        // Game Over
-        if (marty.vidas === 0 ){
-            alert ("Perdiste")
-        }
         
 
         tiempo++
@@ -317,11 +323,16 @@ function empezarJuego (){
 
         // Kills
         ctx.fillText(`${marty.kills}`, 760 , 783 )
-        ctx.font = "10px Arial "
+        ctx.font = "10px Arial"
         ctx.drawImage (skull, 780, 755 ,30 , 30)
  
         // Vidas
         vidas()
+
+        // Pepsi
+        ctx.fillText (`${marty.pepsi}`, 400, 770 )
+        ctx.font = "10px Arial"
+        ctx.drawImage (pepsi, 350, 745, 40, 40)
 
     }, 1000/60)
 }
@@ -332,13 +343,14 @@ ctx.fillStyle = "White"
 
 let btn = document.getElementById("jugar")
 
-btn.addEventListener("click", () => {
+btn.addEventListener("click", () => { 
+    animate()
     empezarJuego()
     creacionDeloreans()
     creacionBiffs()
     creacionRobots()
     creacionBombas()
-    // animate()
+    
     btn.classList.add("none")
    
 })
@@ -393,7 +405,7 @@ function creacionDeloreans (){
     }, Math.floor(Math.random() * (20000 - 8000) + 10000))
 }
 
-// Generacion Robots
+// Generacion Robots aleatorios
 function creacionRobots (){
     setInterval(() => {
         const posY = Math.floor((Math.random() * 500 ) + 60)
@@ -401,7 +413,7 @@ function creacionRobots (){
         const c = new Robot (750, posY)
         robots.push(c)
     
-    },  Math.floor(Math.random() * (5000 - 2000) + 600))
+    },  Math.floor(Math.random() * (5000 - 2000) + 3000))
 }
 
 // Generacion Bombas 
@@ -410,13 +422,13 @@ function creacionBombas (){
         const posAleatoria = Math.floor(Math.random() * 670)
         const d = new Bomba (posAleatoria)
         bombas.push(d)
-
+        console.log ("Bomba") 
     }, Math.floor(Math.random() * (2000 - 1000) + 4000))
 }
 
-// // Game Over
-// function gameOver(){
-//     retrowave.classList.add("none")
-//     botones.classList.add("none")
-//     gameOver.classList.remove("none")
-// }
+// Game Over
+function setGameOver(){
+    cuadro.setAttribute("class", "none")
+    menu.setAttribute( "class","none")
+    gameOver.removeAttribute("class","none")
+}

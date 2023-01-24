@@ -1,5 +1,5 @@
 const canvas = document.getElementById('retroWave');
-const ctx = canvas.getContext('2d');
+const ctxbg = canvas.getContext('2d');
 const canvasWidth = canvas.width = 823;
 const canvasHeight = canvas.height = 800;
 
@@ -26,8 +26,8 @@ class Layer{
     }
 
     dibujar (){
-        ctx.drawImage(this.image, this.x, this.y);
-        ctx.drawImage(this.image, this.x2, this.y)
+        ctxbg.drawImage(this.image, this.x, this.y);
+        ctxbg.drawImage(this.image, this.x2, this.y)
     }
 
     actualizacion (){
@@ -56,7 +56,7 @@ const layerSun = new Layer (back, 0, -25);
 const objetosJuego = [layerSun, layerMountains, layerPalmsBack, layerPalms, layerGround,]
 
 function animate () {
-    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    ctxbg.clearRect(0, 0, canvasWidth, canvasHeight);
     objetosJuego.forEach(objeto => {
         objeto.actualizacion();
         objeto.dibujar()
