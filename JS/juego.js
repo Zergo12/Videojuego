@@ -4,7 +4,7 @@ const cuadro = document.getElementById("retroWave")
 
 // Carga de imagenes
 const heart = new Image ()
-heart.src = "https://toppng.com/public/uploads/thumbnail/heart-pixelart-game-retro-red-minecraft-life-pixel-corazon-de-8-bits-11562936212skverdpytt.png"
+heart.src = "../Assets/Imagenes/HoverBoard.png"
 
 const martyD = new Image ()
 martyD.src = "../Assets/Imagenes/martys/martys/Marty1.png"
@@ -26,6 +26,9 @@ GuitarraD.src = "../Assets/Imagenes/Guitarra1.png"
 
 const bomb = new Image ()
 bomb.src = "../Assets/Imagenes/bomba1.png"
+
+const skull = new Image ()
+skull.src = "../Assets/Imagenes/Skull.png"
 
 
 // Biff
@@ -57,11 +60,11 @@ class Marty {
         this.y = y;
         this.w = w;
         this.h = h;
+        this.vy = 0
         this.velocidad = 10;
         this.kills = 0;
         this.vidas = 4
         this.img = martyD
-        this.img = martyI
 
     }
 
@@ -91,8 +94,11 @@ class Marty {
         
     }
     salto(){
-        this.y -= 3
+        this.y -= 5
+        
     }
+
+   
     
 }
 
@@ -200,7 +206,6 @@ const marty = new Marty (30, 640, 60, 75)
 
 
 
-
 document.addEventListener('keydown', (evento) => {
     switch(evento.key){
         case "ArrowRight":
@@ -237,6 +242,13 @@ function empezarJuego (){
             }
         })
 
+        // Colision Marty vs Robot
+        robots.forEach((robot, indexRobot)  => {
+            if ((robot.x <= marty.x + 60 && marty.y <= robot.y + 70 && marty.y + 75 >= robot.y )){
+                marty.vidas--
+                robots.splice(indexRobot, 1)
+            }
+        })
 
         // Dibuja guitarras
         guitarras.forEach((guitarra ,indexGuitarra) => {
@@ -251,7 +263,18 @@ function empezarJuego (){
                         marty.kills++
                     }
                 })
+
+
+                // Colision guitarra vs Robot
+                robots.forEach((robot, indexRobot)  => {
+                    if (robot.x <= guitarra.x + 30 && guitarra.y >= robot.y && guitarra.y <= robot.y + 70) {
+                        robots.splice(indexRobot, 1)
+                        guitarras.splice(indexGuitarra, 1)
+                        marty.kills++
+                    }
+                })
             })
+            
 
         // Dibuja Delorean
         deloreans.forEach((delorean) => {
@@ -262,9 +285,10 @@ function empezarJuego (){
         // Dibuja Biff
         biffs.forEach((biff) => {
             biff.dibujarse()
-            if ( biff.x <= 0){
-                marty.vidas--
-            }
+            // Si biff toca la pared de la izquierda
+            // if ( biff.x <= 0){
+            //     marty.vidas-=1
+            // }
         })
 
         // Dibuja Robots
@@ -292,8 +316,9 @@ function empezarJuego (){
         // ctx.fillText(tiempo, 10, 35)
 
         // Kills
-        ctx.fillText(`${marty.kills} muertes`, 680 , 785 )
+        ctx.fillText(`${marty.kills}`, 760 , 783 )
         ctx.font = "10px Arial "
+        ctx.drawImage (skull, 780, 755 ,30 , 30)
  
         // Vidas
         vidas()
@@ -321,25 +346,25 @@ btn.addEventListener("click", () => {
 // Vidas
 function vidas (){
     if (marty.vidas === 4){
-        ctx.drawImage(heart, 10, 760, 30, 30)
-        ctx.drawImage(heart, 44, 760, 30, 30)
-        ctx.drawImage(heart, 80, 760, 30, 30)
-        ctx.drawImage(heart, 115, 760, 30, 30)
+        ctx.drawImage(heart, 10, 740, 50, 50)
+        ctx.drawImage(heart, 50, 740, 50, 50)
+        ctx.drawImage(heart, 90, 740, 50, 50)
+        ctx.drawImage(heart, 130, 740, 50, 50)
     }
 
     if (marty.vidas === 3){
-        ctx.drawImage(heart, 10, 760, 30, 30)
-        ctx.drawImage(heart, 44, 760, 30, 30)
-        ctx.drawImage(heart, 80, 760, 30, 30)
+        ctx.drawImage(heart, 10, 740, 50, 50)
+        ctx.drawImage(heart, 50, 740, 50, 50)
+        ctx.drawImage(heart, 90, 740, 50, 50)
     }
 
     if (marty.vidas === 2){
-        ctx.drawImage(heart, 10, 760, 30, 30)
-        ctx.drawImage(heart, 44, 760, 30, 30)
+        ctx.drawImage(heart, 10, 740, 50, 50)
+        ctx.drawImage(heart, 50, 740, 50, 50)
     }
 
     if(marty.vidas === 1){
-        ctx.drawImage(heart, 10, 760, 30, 30)
+        ctx.drawImage(heart, 10, 740, 50, 50)
     }
 }
 
@@ -362,7 +387,7 @@ function creacionDeloreans (){
         const b = new Delorean (750, posicionY)
         deloreans.push(b)
 
-        const c = new Robot (750, posY)
+        const c = new Robot (750, posicionY)
         robots.push(c)
     
     }, Math.floor(Math.random() * (20000 - 8000) + 10000))
@@ -371,12 +396,12 @@ function creacionDeloreans (){
 // Generacion Robots
 function creacionRobots (){
     setInterval(() => {
-        const posY = Math.floor((Math.random() * 500 ) + 48)
+        const posY = Math.floor((Math.random() * 500 ) + 60)
         console.log ('Robot') 
         const c = new Robot (750, posY)
         robots.push(c)
     
-    },  Math.floor(Math.random() * (5000 - 2000) + 6000))
+    },  Math.floor(Math.random() * (5000 - 2000) + 600))
 }
 
 // Generacion Bombas 
@@ -391,5 +416,7 @@ function creacionBombas (){
 
 // // Game Over
 // function gameOver(){
-//     retrowave.c
+//     retrowave.classList.add("none")
+//     botones.classList.add("none")
+//     gameOver.classList.remove("none")
 // }
