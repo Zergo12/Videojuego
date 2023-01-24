@@ -68,4 +68,3 @@ function animate () {
 
 const inicio = new Audio ("../Assets/Sonidos/music/synthwave-palms/synthwave-palms.mp3")
 
-// inicio.play()

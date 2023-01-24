@@ -32,8 +32,8 @@ bomb.src = "../Assets/Imagenes/bomba1.png"
 const skull = new Image ()
 skull.src = "../Assets/Imagenes/Skull.png"
 
-const pepsi = new Image ()
-pepsi.src = "../Assets/Imagenes/Pepsi.com.png"
+const soda = new Image ()
+soda.src = "../Assets/Imagenes/Pepsi.com.png"
 
 
 // Biff
@@ -56,6 +56,12 @@ const robots = []
 
 const deloreans = []
 
+// Pepsis   
+
+const pepsis = []
+
+
+
 
 // Personaje -Clase
 
@@ -66,7 +72,7 @@ class Marty {
         this.w = w;
         this.h = h;
         this.vy = 0
-        this.velocidad = 10;
+        this.velocidad = 15;
         this.kills = 0;
         this.vidas = 4
         this.img = martyD
@@ -155,15 +161,15 @@ class Robot {
     }
 
     dibujarse(){
-        this.x -= 2
+        this.x -= 4
         ctx.drawImage(this.img, this.x, this.y, 50, 70)
   
     }
 
     disparar (){
-        const bomba = new Bomba (this.x + this.w, this.y + (this.h/4))
-        bombas.push(bomba) 
-
+        const bomba = new Bomba (this.x + (this.w/2), this.y + this.h)
+        bombas.push(bomba)
+        
     }
 
 
@@ -172,18 +178,15 @@ class Robot {
 // Bomba - Clase
 
 class Bomba {
-    constructor(x){
+    constructor(x,y){
         this.x = x;
-        this.y = 0
+        this.y = y
         this.img = bomb
     }
 
-    // caida (){
-       
-    // }
-
     dibujarse(){
-        this.y++ 
+        this.y+=3 
+        this.x-=2 
         ctx.drawImage(this.img, this.x, this.y, 20, 20)
         
     }
@@ -202,14 +205,32 @@ class Delorean {
         this.x -= 2
         ctx.drawImage(this.img, this.x, this.y, 150, 150)
         }
+
+    disparar (){
+        const pepsi = new Pepsi (this.x + (this.w/2), this.y + this.h)
+        pepsis.push(pepsi)
+            
+        }
+}
+
+    // Pepsi - Clase
+    class Pepsi {
+        constructor(x,y){
+            this.x = x
+            this.y = y
+            this.img = soda
+        }
+        dibujarse(){
+            this.y+=3 
+            this.x-=2 
+            ctx.drawImage(this.img, this.x, this.y, 40, 40)
+    }
 }
 
 
 // Instancias 
 
-const marty = new Marty (30, 640, 60, 75)
-
-
+const marty = new Marty (30, 660, 60, 75)
 
 
 document.addEventListener('keydown', (evento) => {
@@ -229,7 +250,7 @@ document.addEventListener('keydown', (evento) => {
     }
 })
 
-let tiempo = 0
+// let tiempo = 0
 
 // Empezar juego
 function empezarJuego (){
@@ -260,6 +281,30 @@ function empezarJuego (){
             }
         })
 
+        // Colision Marty vs Bomba
+        bombas.forEach((bomba, indexBomba)  => {
+            if ((marty.x  + 60 >= bomba.x &&
+                marty.y <= bomba.y + 20 &&
+                bomba.x >= marty.x &&
+                marty.y + 75 >= bomba.y )){
+                marty.vidas--
+                bombas.splice(indexBomba, 1)
+            }
+        })
+
+        // Colision Marty vs Pepsi
+        pepsis.forEach((pepsi, indexPepsi)  => {
+            if ((marty.x  + 60 >= pepsi.x &&
+                marty.y <= pepsi.y + 40 &&
+                pepsi.x >= marty.x &&
+                marty.y + 75 >= pepsi.y )){
+                marty.pepsi++
+                pepsis.splice(indexPepsi, 1)
+            }
+        })
+    
+
+        
         // Dibuja guitarras
         guitarras.forEach((guitarra ,indexGuitarra) => {
                 guitarra.x += 2
@@ -287,53 +332,67 @@ function empezarJuego (){
             
 
         // Dibuja Delorean
-        deloreans.forEach((delorean) => {
+        deloreans.forEach((delorean,indexDelorean) => {
             delorean.dibujarse()
-
-        })
-
-        // Dibuja Biff
-        biffs.forEach((biff) => {
-            biff.dibujarse()
-            // Si biff toca la pared de la izquierda
-            // if ( biff.x <= 0){
-            //     marty.vidas-=1
-            // }
-        })
-
-        // Dibuja Robots
-        robots.forEach((robot) => {
-            robot.dibujarse()
-            
-            bombas.forEach (() => {
-
-            })
-        })
-
-        // Dibuja Bombas
-        bombas.forEach ((bomba) => {
-            bomba.dibujarse()
+            if( delorean.x <= 0){
+                deloreans.splice(indexDelorean,1)
+            }
         })
 
         
 
-        tiempo++
+        // Dibuja Biff
+        biffs.forEach((biff) => {
+            biff.dibujarse()
+        })
+
+        // Dibuja Robots
+        robots.forEach((robot, indexRobot) => {
+            robot.dibujarse()
+
+            if (robot.x <= 0){
+                robots.splice(indexRobot,1)
+            }
+        })
+
+        // Dibuja Bombas
+        bombas.forEach ((bomba, indexBomba) => {
+            bomba.dibujarse()
+
+            // Colision bomba vs Piso
+           if (bomba.y >= 700 )
+           bombas.splice(indexBomba,1)
+        })
+
+        // Dibuja Pepsis
+        pepsis.forEach ((pepsi, indexPepsi) => {
+            pepsi.dibujarse()
+            // Colision pepsi vs piso
+            if(pepsi.y >= 700){
+            pepsis.splice(indexPepsi,1)
+            }
+        })
+
+        
+
+        // tiempo++
         ctx.font = "30px Arial"
         // ctx.fillText(tiempo, 10, 35)
 
         // Kills
-        ctx.fillText(`${marty.kills}`, 760 , 783 )
-        ctx.font = "10px Arial"
-        ctx.drawImage (skull, 780, 755 ,30 , 30)
+        ctx.fillText(`${marty.kills}`, 740 , 790 )
+        
+        ctx.drawImage (skull, 780, 765 , 25, 25)
  
         // Vidas
         vidas()
 
         // Pepsi
-        ctx.fillText (`${marty.pepsi}`, 400, 770 )
-        ctx.font = "10px Arial"
-        ctx.drawImage (pepsi, 350, 745, 40, 40)
+        ctx.fillText (`${marty.pepsi}`, 400, 792 )
+        // ctx.font = "10px Arial"
+        ctx.drawImage (soda, 367, 765, 30, 30)
 
+        ctx.font = "5px Arial"
     }, 1000/60)
 }
 
@@ -350,7 +409,8 @@ btn.addEventListener("click", () => {
     creacionBiffs()
     creacionRobots()
     creacionBombas()
-    
+    creacionPepsi()
+    // inicio.play()
     btn.classList.add("none")
    
 })
@@ -358,25 +418,25 @@ btn.addEventListener("click", () => {
 // Vidas
 function vidas (){
     if (marty.vidas === 4){
-        ctx.drawImage(heart, 10, 740, 50, 50)
-        ctx.drawImage(heart, 50, 740, 50, 50)
-        ctx.drawImage(heart, 90, 740, 50, 50)
-        ctx.drawImage(heart, 130, 740, 50, 50)
+        ctx.drawImage(heart, 10, 770, 30, 30)
+        ctx.drawImage(heart, 50, 770, 30, 30)
+        ctx.drawImage(heart, 90, 770, 30, 30)
+        ctx.drawImage(heart, 130, 770, 30, 30)
     }
 
     if (marty.vidas === 3){
-        ctx.drawImage(heart, 10, 740, 50, 50)
-        ctx.drawImage(heart, 50, 740, 50, 50)
-        ctx.drawImage(heart, 90, 740, 50, 50)
+        ctx.drawImage(heart, 10, 770, 30, 30)
+        ctx.drawImage(heart, 50, 770, 30, 30)
+        ctx.drawImage(heart, 90, 770, 30, 30)
     }
 
     if (marty.vidas === 2){
-        ctx.drawImage(heart, 10, 740, 50, 50)
-        ctx.drawImage(heart, 50, 740, 50, 50)
+        ctx.drawImage(heart, 10, 770, 30, 30)
+        ctx.drawImage(heart, 50, 770, 30, 30)
     }
 
     if(marty.vidas === 1){
-        ctx.drawImage(heart, 10, 740, 50, 50)
+        ctx.drawImage(heart, 10, 770, 30, 30)
     }
 }
 
@@ -384,10 +444,10 @@ function vidas (){
 
 function creacionBiffs (){
     setInterval(() => {
-        const a = new Biff (750, 620)
+        const a = new Biff (760, 650)
         console.log ('Biff') 
         biffs.push(a)
-    }, 4000) 
+    }, 3000) 
 }
 
 
@@ -396,34 +456,42 @@ function creacionDeloreans (){
     setInterval(() => {
         const posicionY = Math.floor((Math.random() * 300) + 60)
         console.log ('Delorean') 
-        const b = new Delorean (750, posicionY)
+        const b = new Delorean (780, posicionY)
         deloreans.push(b)
-
-        const c = new Robot (750, posicionY)
-        robots.push(c)
-    
-    }, Math.floor(Math.random() * (20000 - 8000) + 10000))
+    }, Math.floor(Math.random() * (10000 - 2000) + 3000))
 }
 
 // Generacion Robots aleatorios
 function creacionRobots (){
     setInterval(() => {
         const posY = Math.floor((Math.random() * 500 ) + 60)
-        console.log ('Robot') 
-        const c = new Robot (750, posY)
+        const c = new Robot (795, posY)
         robots.push(c)
-    
-    },  Math.floor(Math.random() * (5000 - 2000) + 3000))
+    },  Math.floor(Math.random() * (10000 - 6000) + 500))
 }
 
 // Generacion Bombas 
 function creacionBombas (){
     setInterval (() => {
-        const posAleatoria = Math.floor(Math.random() * 670)
-        const d = new Bomba (posAleatoria)
-        bombas.push(d)
-        console.log ("Bomba") 
-    }, Math.floor(Math.random() * (2000 - 1000) + 4000))
+        let posicion = robots.forEach((robot) => {
+            robot.x 
+            robot.y
+            const d = new Bomba (robot.x, robot.y)
+            bombas.push(d)
+        })    
+    }, Math.floor(Math.random() * (2000 - 1000) + 1000))
+}
+
+// Generacion Pepsis
+function creacionPepsi (){
+    setInterval (() => {
+        let posicion = deloreans.forEach((delorean) => {
+            delorean.x 
+            delorean.y
+            const e = new Pepsi (delorean.x, delorean.y)
+            deloreans.push(e)
+        })    
+    }, Math.floor(Math.random() * (4000 - 00) + 2000))
 }
 
 // Game Over
