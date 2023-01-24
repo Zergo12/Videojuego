@@ -52,7 +52,9 @@ const layerPalmsBack = new Layer (palmsBack, 0.3, 450);
 const layerMountains = new Layer (mountains, 0.2, 140);
 const layerSun = new Layer (back, 0, -25);
 
-const objetosJuego = [layerSun, layerMountains, layerPalmsBack, layerPalms, layerGround]
+
+const objetosJuego = [layerSun, layerMountains, layerPalmsBack, layerPalms, layerGround,]
+
 function animate () {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     objetosJuego.forEach(objeto => {
@@ -61,7 +63,7 @@ function animate () {
     })
     requestAnimationFrame(animate);
 };
-animate()
+// animate()
 
 
 const inicio = new Audio ("../Assets/Sonidos/music/synthwave-palms/synthwave-palms.mp3")
