@@ -1,13 +1,16 @@
 const cuadro = document.getElementById("retroWave")
-// const ctx = cuadro.getContext('2d');
+
 
 
 // Carga de imagenes
-// const pizza = new Image ()
-// heart.src = "https://toppng.com/public/uploads/thumbnail/heart-pixelart-game-retro-red-minecraft-life-pixel-corazon-de-8-bits-11562936212skverdpytt.png"
+const heart = new Image ()
+heart.src = "https://toppng.com/public/uploads/thumbnail/heart-pixelart-game-retro-red-minecraft-life-pixel-corazon-de-8-bits-11562936212skverdpytt.png"
 
-const martyd = new Image ()
-martyd.src = "../Assets/Imagenes/martys/martys/Marty1.png"
+const martyD = new Image ()
+martyD.src = "../Assets/Imagenes/martys/martys/Marty1.png"
+
+const martyI = new Image ()
+martyI.src = "../Assets/Imagenes/MartyAtras.png"
 
 const DeloreanI = new Image ()
 DeloreanI.src = "../Assets/Imagenes/Delorean.png"
@@ -20,6 +23,9 @@ RobotI.src = "../Assets/Imagenes/Robot1.png"
 
 const GuitarraD = new Image ()
 GuitarraD.src = "../Assets/Imagenes/Guitarra1.png"
+
+const bomb = new Image ()
+bomb.src = "../Assets/Imagenes/bomba1.png"
 
 
 // Biff
@@ -43,7 +49,6 @@ const robots = []
 const deloreans = []
 
 
-
 // Personaje -Clase
 
 class Marty {
@@ -54,10 +59,9 @@ class Marty {
         this.h = h;
         this.velocidad = 10;
         this.kills = 0;
-        // this.gravedad = 0.5;
-        // this.velocidadGravedad = 0
-        // this.lifes = 3
-        this.img = martyd
+        this.vidas = 4
+        this.img = martyD
+        this.img = martyI
 
     }
 
@@ -75,7 +79,7 @@ class Marty {
         if (this.x < 763){
             this.x += this.velocidad
         }
-        this.img = martyd
+        this.img = martyD
         
     }
 
@@ -83,6 +87,7 @@ class Marty {
         if (this.x > 0 ){
             this.x -= this.velocidad
         }
+        this.img = martyI
         
     }
     salto(){
@@ -90,10 +95,6 @@ class Marty {
     }
     
 }
-
-
-
-        ctx.fillStyle = '#ffffff'
 
 
 // Guitarra - Clase
@@ -147,20 +148,32 @@ class Robot {
   
     }
 
+    disparar (){
+        const bomba = new Bomba (this.x + this.w, this.y + (this.h/4))
+        bombas.push(bomba) 
+
+    }
+
 
 }
 
 // Bomba - Clase
 
 class Bomba {
-    constructor(x,y){
+    constructor(x){
         this.x = x;
-        this.y = y;
+        this.y = 0
+        this.img = bomb
     }
 
+    // caida (){
+       
+    // }
+
     dibujarse(){
-        ctx.fillRect(this.x, this.y, 300, 300)
-        ctx.fillStyle = "#ffffff"
+        this.y++ 
+        ctx.drawImage(this.img, this.x, this.y, 20, 20)
+        
     }
 }
 
@@ -184,7 +197,6 @@ class Delorean {
 
 const marty = new Marty (30, 640, 60, 75)
 
-// marty.dibujarse()
 
 
 
@@ -219,6 +231,7 @@ function empezarJuego (){
         // Colision Marty vs Biff
         biffs.forEach((biff, indexBiff)  => {
             if ((biff.x <= marty.x + 60 && marty.y <= biff.y + 95 && marty.y + 75 >= biff.y )){
+                marty.vidas--
                 biffs.splice(indexBiff, 1)
                 console.log ('choque')
             }
@@ -249,13 +262,29 @@ function empezarJuego (){
         // Dibuja Biff
         biffs.forEach((biff) => {
             biff.dibujarse()
+            if ( biff.x <= 0){
+                marty.vidas--
+            }
         })
 
         // Dibuja Robots
         robots.forEach((robot) => {
             robot.dibujarse()
+            
+            bombas.forEach (() => {
 
+            })
         })
+
+        // Dibuja Bombas
+        bombas.forEach ((bomba) => {
+            bomba.dibujarse()
+        })
+
+        // Game Over
+        if (marty.vidas === 0 ){
+            alert ("Perdiste")
+        }
         
 
         tiempo++
@@ -263,17 +292,16 @@ function empezarJuego (){
         // ctx.fillText(tiempo, 10, 35)
 
         // Kills
-        ctx.fillText(`${marty.kills} muertes`, 670 , 30 )
+        ctx.fillText(`${marty.kills} muertes`, 680 , 785 )
         ctx.font = "10px Arial "
+ 
+        // Vidas
+        vidas()
+
     }, 1000/60)
 }
-    
-function colisiones (){
 
-}
-
-
-
+ctx.fillStyle = "White"
 
 // Boton para empezar/pausar juego
 
@@ -284,11 +312,36 @@ btn.addEventListener("click", () => {
     creacionDeloreans()
     creacionBiffs()
     creacionRobots()
+    creacionBombas()
     // animate()
     btn.classList.add("none")
    
 })
 
+// Vidas
+function vidas (){
+    if (marty.vidas === 4){
+        ctx.drawImage(heart, 10, 760, 30, 30)
+        ctx.drawImage(heart, 44, 760, 30, 30)
+        ctx.drawImage(heart, 80, 760, 30, 30)
+        ctx.drawImage(heart, 115, 760, 30, 30)
+    }
+
+    if (marty.vidas === 3){
+        ctx.drawImage(heart, 10, 760, 30, 30)
+        ctx.drawImage(heart, 44, 760, 30, 30)
+        ctx.drawImage(heart, 80, 760, 30, 30)
+    }
+
+    if (marty.vidas === 2){
+        ctx.drawImage(heart, 10, 760, 30, 30)
+        ctx.drawImage(heart, 44, 760, 30, 30)
+    }
+
+    if(marty.vidas === 1){
+        ctx.drawImage(heart, 10, 760, 30, 30)
+    }
+}
 
 // Generacion de Biffs 
 
@@ -304,21 +357,39 @@ function creacionBiffs (){
 // Generacion de Delorean aleatorios
 function creacionDeloreans (){
     setInterval(() => {
-        const posicionY = Math.floor((Math.random() * 600) + 50)
+        const posicionY = Math.floor((Math.random() * 300) + 60)
         console.log ('Delorean') 
         const b = new Delorean (750, posicionY)
         deloreans.push(b)
+
+        const c = new Robot (750, posY)
+        robots.push(c)
     
-    }, Math.floor(Math.random() * (30000 - 8000) + 1000))
+    }, Math.floor(Math.random() * (20000 - 8000) + 10000))
 }
 
 // Generacion Robots
 function creacionRobots (){
     setInterval(() => {
-        const posY = Math.floor((Math.random() * 600 ) + 48)
+        const posY = Math.floor((Math.random() * 500 ) + 48)
         console.log ('Robot') 
         const c = new Robot (750, posY)
         robots.push(c)
     
-    },  Math.floor(Math.random() * (5000 - 2000) + 3000))
+    },  Math.floor(Math.random() * (5000 - 2000) + 6000))
 }
+
+// Generacion Bombas 
+function creacionBombas (){
+    setInterval (() => {
+        const posAleatoria = Math.floor(Math.random() * 670)
+        const d = new Bomba (posAleatoria)
+        bombas.push(d)
+
+    }, Math.floor(Math.random() * (2000 - 1000) + 4000))
+}
+
+// // Game Over
+// function gameOver(){
+//     retrowave.c
+// }
