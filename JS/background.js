@@ -3,6 +3,8 @@ const ctxbg = canvas.getContext('2d');
 const canvasWidth = canvas.width = 823;
 const canvasHeight = canvas.height = 800;
 
+let requestRef
+
 const road = document.getElementById('road');
 const palms = document.getElementById('palms');
 const palmsBack = document.getElementById('palmsBack');
@@ -61,9 +63,11 @@ function animate () {
         objeto.actualizacion();
         objeto.dibujar()
     })
-    requestAnimationFrame(animate);
+
+  let reqId = requestAnimationFrame(animate);
+  requestRef = reqId
 };
-// animate()
+
 
 
 const inicio = new Audio ("../Assets/Sonidos/music/synthwave-palms/synthwave-palms.mp3")
