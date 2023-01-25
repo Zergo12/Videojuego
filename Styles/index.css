@@ -51,6 +51,8 @@ h2{
   font-size: 15px;
   box-shadow: 2px 2px #00fff9;
   text-shadow: 1px 1px #00b8ff;
+  text-align: justify;
+
 }
 
 button{

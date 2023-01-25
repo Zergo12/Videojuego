@@ -318,7 +318,7 @@ function empezarJuego (){
         // Game Over
         if (marty.vidas === 0){
             setGameOver()
-        } else if(marty.pepsi === 10){
+        } else if(marty.pepsi === 1){
             setWin()
         }
 
@@ -478,7 +478,7 @@ btn.addEventListener("click", () => {
     creacionRobots()
     creacionBombas()
     creacionPepsi()
-    // inicio.play()
+    inicio.play()
     btn.classList.add("none")
    
 })
@@ -516,7 +516,6 @@ function creacionBiffs (){
         biffs.push(a)
     }, 3000) 
 }
-
 
 // Generacion de Delorean aleatorios
 function creacionDeloreans (){
@@ -570,6 +569,10 @@ function setGameOver(){
 // You Win
 function setWin(){
     cuadro.setAttribute("class", "none")
+    canvas.setAttribute("class", "none")
     menu.setAttribute( "class","none")
     youWin.removeAttribute("class", "none")
+    clearInterval(idCrearBiff)
+    clearInterval(idCrearBombas)
+    cancelAnimationFrame(requestRef)
 }
