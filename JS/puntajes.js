@@ -1,38 +1,37 @@
-
- 
 function clickbtnAgregar(){
-    const usuario = ({
-        nombre: document.getElementById("txt").value,
-        puntuacion: marty.pepsi,
-    })
     guardarUsuario()
 
 }
 
 
-function guardarUsuario (usuario){
+function guardarUsuario (usario){
+
+    const puntuaciones = JSON.parse(localStorage.getItem("puntuaciones"));
+    console.log (puntuaciones) 
 
     let personasGuardadas = []
-
-    let storageProfileString = JSON.parse(localStorage.getItem("puntaje"));
-    console.log (storageProfileString)
     
-    if (storageProfileString){
-        console.log ("Tiene datos") 
-    } else {
-        console.log ("No tiene datos") 
+    if (puntuaciones != null){
+        personasGuardadas = [...puntuaciones]
+    } 
+
+    let datos = ({
+        nombre: document.getElementById("txt").value,
+        puntuacion: marty.pepsi,
+    })    
+
+    personasGuardadas.push(datos)
+    localStorage.setItem("puntuaciones", JSON.stringify (personasGuardadas)); 
+    
+    const puntuacion = JSON.parse(localStorage.getItem("puntuaciones"));
+
+    agregarPersona(puntuacion)
+
     }
 
-    // localStorage.setItem("puntaje", JSON.stringify (puntaje) || []); 
-
-    // let personasGuardadas = JSON.parse(storageProfileString)
-
-    agregarPersona(personasGuardadas)
-    }
-
-
+    
 function agregarPersona (usuarios){
-    usuarios.forEach( usuario => {      
+    usuarios.slice(0,10).sort(function(a,b){return b-a}).forEach( usuario => {      
         const nuevoJugador = document.createElement("tr");
         nuevoJugador.innerHTML = `<td class="Nombre">
           <span>${usuario.nombre}</span>
@@ -46,47 +45,41 @@ function agregarPersona (usuarios){
 
 }
     
- //     keysArray.push(localStorage.key(i));
 
+const modal = document.getElementById("cajaModal");
 
+let span = document.getElementsByClassName("cerrar")[0];
 
+const scores = document.getElementById("btnPuntuaciones")
 
-// Obtenemos el valor de una clave
-// let value = localStorage.getItem('key');
-
-// Se elimina una clave
-// localStorage.removeItem('key');
-
-// Eliminamos todas las claves
-// localStorage.clear();
-
-// Se guarda un valor en formato JSON
-// value = JSON.stringify({"key": true, "key2": 42, "key3": "Hello World!"});
-// localStorage.setItem('key', puntaje);
-
-
-// Obtenemos el valor de una cadena guardada en formato JSON
-// const string = localStorage.getItem('key');
-// value = JSON.parse(string);
-
-// Buscar elementos
-// let keysArray = [];
-// for (let i = 0; i < localStorage.length; ++i) {
-//     keysArray.push(localStorage.key(i));
-// }
-// console.log(keysArray);
-
-
-// window.addEventListener('storage', function(e) {  
-//     console.log("Key: " + e.key);
-//     console.log("Old value: " + e.oldValue);
-//     console.log("New value: " + e.newValue);
-//     console.log("Url: " + e.url);
-//     console.log("Storage area: " + JSON.stringify(e.storageArea));
-// });
+let btnAgregar = document.getElementById("btnAgregar")
 
 window.addEventListener ("load", () => {
-    let btnAgregar = document.getElementById("btnAgregar")
     btnAgregar.addEventListener("click", clickbtnAgregar)
+    btnAgregar.addEventListener("click", clearInput)
+    
+    btnAgregar.onclick = function() {
+        modal.style.display = "block";
+      }
+
+   scores.onclick = function() {
+        modal.style.display = "block";
+      }
 
 }) 
+
+
+
+span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  function clearInput(){
+    document.getElementById("txt").value = "";
+  };

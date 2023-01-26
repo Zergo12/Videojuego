@@ -39,8 +39,6 @@
     </div>
     
 
-    
-
     <div class="gameOver none">
         <h2 class="gameOverTitle">Game Over</h2>
         <div class="botonesGameOver">
@@ -50,30 +48,45 @@
             <a href="../HTML/juego.html">
                 <button class="animate__flash_Tr">Try Again</button>
             </a>
-                <input id="txt" type="text"/>
-                <button id="btnAgregar" class="animate__flash_An">Agregar nombre</button>    
+        <div class="agregarJugador">
+                <!-- Boton Agregar Persona -->
+                <input id="txt" type="text" placeholder="Nombre"/>
+                <div id="row">
+                    <button id="btnAgregar" class="animate__flash_An">Agregar nombre</button>
+                    <button id="btnPuntuaciones" class="animate__flash_Pu"> Puntuaciones</button>
+                </div>
+                
+        <div>
+                 <!--Modal -->
+                <div id="cajaModal" class="modal">
+            
+                <!-- Conetido -->
+                <div class="contenidoModal">
+                    <span class="cerrar">&times;</span>
+                    <div class="bodyModal"> 
+                        <table id="tabla">
+                            <thead id="head">
+                                <tr class="border">
+                                    <th> Nombre </th>
+                                    <th> Puntuacion </th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                            <tr class="nuevoJugador border">
+                                <td>
+                                    <span class="Nombre"></span>
+                                </td>
+                                <td>
+                                    <span class="Puntuacion"></span>
+                                </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+            </div>
+                 
         </div>
-       
-            <div> 
-                <table id="tabla">
-                    <thead id="head">
-                        <tr class="border">
-                            <th> Nombre </th>
-                            <th> Puntuacion </th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody">
-                    <tr class="nuevoJugador border">
-                        <td>
-                            <span class="Nombre"> Nombre </span>
-                        </td>
-                        <td>
-                            <span class="Puntuacion"> 0 </span>
-                        </td>
-                        </tr>
-                    </tbody>
-                </table>
-          </div>
     </div>
 
     <!-- <div class="youWin none">
