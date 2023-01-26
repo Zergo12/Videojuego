@@ -42,7 +42,7 @@ body{
 
 .botonInicio{
     margin: 25px;
-    padding: 10px;
+    padding: 12px;
 }
 
 #botonJugar:hover{
@@ -70,7 +70,7 @@ animation-duration: 1s;
   box-shadow: 2px 2px #00fff9;
   text-shadow: 2px 2px #00b8ff;
   text-align: start;
-  line-height: 30px;
+  line-height: 35px;
   animation: pulse;
   animation-duration: 1s;
 }

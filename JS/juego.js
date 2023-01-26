@@ -17,7 +17,6 @@ tabla.setAttribute("border", "1", "white")
 const esconder = document.getElementsByClassName("space")
 
 
-
 let requestReference 
 
 let idCrearBiff
@@ -158,7 +157,7 @@ class Marty {
         this.vy = 0
         this.velocidad = 15;
         this.kills = 0;
-        this.vidas = 1
+        this.vidas = 4
         this.img = martyD
         this.pepsi = 0
 
@@ -563,7 +562,7 @@ function creacionRobots (){
         const posY = Math.floor((Math.random() * 500 ) + 60)
         const c = new Robot (795, posY)
         robots.push(c)
-    },  Math.floor(Math.random() * (10000 - 6000) + 1000))
+    },  Math.floor(Math.random() * (3400 - 2100) + 1000))
 }
 
 // Generacion Bombas 
@@ -575,7 +574,7 @@ function creacionBombas (){
             const d = new Bomba (robot.x + (robot.w/2), robot.y + robot.h)
             bombas.push(d)
         })    
-    }, Math.floor(Math.random() * (2000 - 1000) + 1000))
+    }, Math.floor(Math.random() * (3000 - 2000) + 1000))
 }
 
 // Generacion Pepsis

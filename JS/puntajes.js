@@ -29,9 +29,13 @@ function guardarUsuario (usario){
 
     }
 
+
+ function compararPuntaje (a,b){
+    return b-a
+ }
     
 function agregarPersona (usuarios){
-    usuarios.slice(0,10).sort(function(a,b){return b-a}).forEach( usuario => {      
+    usuarios.sort((a,b) => b.puntuacion - a.puntuacion).slice(0,10).forEach( usuario => {      
         const nuevoJugador = document.createElement("tr");
         nuevoJugador.innerHTML = `<td class="Nombre">
           <span>${usuario.nombre}</span>
@@ -42,9 +46,12 @@ function agregarPersona (usuarios){
         const jugador = document.querySelector("#tabla");
         jugador.appendChild(nuevoJugador)
      }); 
+     console.log (usuarios) 
 
 }
     
+
+
 
 const modal = document.getElementById("cajaModal");
 
@@ -61,25 +68,23 @@ window.addEventListener ("load", () => {
     btnAgregar.onclick = function() {
         modal.style.display = "block";
       }
-
-   scores.onclick = function() {
-        modal.style.display = "block";
-      }
+    //   Llama boton puntuacioes
+//    scores.onclick = function() {
+//         modal.style.display = "block";
+//       }
 
 }) 
 
-
-
 span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
     modal.style.display = "none";
   }
+}
 
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  }
-
-  function clearInput(){
-    document.getElementById("txt").value = "";
-  };
+function clearInput(){
+  document.getElementById("txt").value = "";
+};
