@@ -14,32 +14,64 @@
     <link rel="icon" type="images/x-icon" href="https://cdn.shopify.com/s/files/1/1015/7033/products/OUTATIME_843b114a-4f14-4971-a591-dd72d8cb3844.png?v=1510213232" />
 </head>
 <body>
-    <div class="botones">
-        <button id="jugar">Jugar</button>
-        <button id="pausaToggle">Pausa</button>
-        <a href="../index.html">
-            <button id="inicio">Inicio</button>
-        </a>
-    </div>
 
-    <div class="space">
-        <canvas id="retroWave"  >
-            <img src="../Assets/Imagenes/backgrounds/synthwave/layers/Ground2.png" id="road">
-            <img src="../Assets/Imagenes/backgrounds/synthwave/layers/PalmsFront1.png" id="palms">
-            <img src="../Assets/Imagenes/backgrounds/synthwave/layers/palms back3.png" id="palmsBack">
-            <img src="../Assets/Imagenes/backgrounds/synthwave/layers/mount6.png" id="mountains">
-            <img src="../Assets/Imagenes/backgrounds/synthwave/layers/sunnnn.png" id="back">
-        </canvas>
+    <div class="ocultar"> 
+        <div class="botones">
+            <button id="jugar">Jugar</button>
+            <button id="pausaToggle">Pausa</button>
+            <a href="../index.html">
+                <button id="inicio">Inicio</button>
+            </a>
+        </div>
     
-        <canvas id="cuadroJuego" width="823" height="800"></canvas>
-    
+        <div  class="space">
+            <canvas id="retroWave"  >
+                <img src="../Assets/Imagenes/backgrounds/synthwave/layers/Ground2.png" id="road">
+                <img src="../Assets/Imagenes/backgrounds/synthwave/layers/PalmsFront1.png" id="palms">
+                <img src="../Assets/Imagenes/backgrounds/synthwave/layers/palms back3.png" id="palmsBack">
+                <img src="../Assets/Imagenes/backgrounds/synthwave/layers/mount6.png" id="mountains">
+                <img src="../Assets/Imagenes/backgrounds/synthwave/layers/sunnnn.png" id="back">
+            </canvas>
+        
+            <canvas id="cuadroJuego" width="823" height="800"></canvas>
+        
+        </div>
     </div>
+    
+
     
 
     <div class="gameOver none">
+        <h2>Game Over</h2>
         <a href="../index.html">
-            <button>Game Over</button>
+            <button>Inicio</button>
         </a>
+        <a href="../HTML/juego.html">
+            <button>Try Again</button>
+        </a>
+            <input id="txt" type="text"/>
+            <button id="btnAgregar">Agregar nombre</button>
+        
+            <div> 
+                <table id="tabla">
+                    <thead id="head">
+                        <tr class="border">
+                            <th> Nombre </th>
+                            <th> Puntuacion </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                    <tr class="nuevoJugador border">
+                        <td>
+                            <span class="Nombre"> Nombre </span>
+                        </td>
+                        <td>
+                            <span class="Puntuacion"> 0 </span>
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
+          </div>
     </div>
 
     <div class="youWin none">
@@ -51,8 +83,9 @@
         </a>
     </div>
 
+   
     <script src="../JS/background.js"></script>
     <script src="../JS/juego.js"></script>
-   
+    <script src="../JS/puntajes.js"></script>
 </body>
 </html>

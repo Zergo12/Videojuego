@@ -24,7 +24,6 @@ body{
     }
 
 canvas{
-
     border: 2px solid #753ecc;
     display: flex;
     justify-content: center;
@@ -33,6 +32,10 @@ canvas{
     height: 700px;
 }
 
+h2{
+    padding-top: 30px;
+    font-size: 30px;
+}
 
 #cuadroJuego{
     position: absolute; 
@@ -54,9 +57,10 @@ canvas{
 
 
 .gameOver{
-    display: flex;
+    /* display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column; */
     width: 100vw;
     height: 100vh;
     background-repeat: no-repeat;
@@ -74,3 +78,31 @@ canvas{
     background-size: cover;
     background-image: url ("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700813085.jpg")
 }
+
+#txt{
+    display: flex;
+   background-color: rgba(0,184,255, 0.8);
+   border-radius: 10px;
+   padding: 5px;
+   color: #00fff9;
+}
+
+#tabla{
+    color:#00fff9 ;
+    text-align: center;
+    height: 80px;
+    padding: 4px;
+    text-shadow:  #753ecc;
+}
+
+/* #tbody{
+    height: 150px;
+    border: 1px solid white;
+}
+
+#head{
+    border: 1px solid white;
+} */
+
+
+

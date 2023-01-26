@@ -62,7 +62,7 @@ button{
     background-color: rgba(0,184,255, 0.8);
     color: #4900ff;
     border-color:#00b8ff ;
-    box-shadow: 1px 1px #00fff9;
-    text-shadow: 1px 1px #00b8ff ;
+    box-shadow: 2px 2px #00fff9;
+    text-shadow: 2px 2px #00b8ff ;
     text-align: center;
 }

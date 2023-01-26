@@ -1,6 +1,20 @@
 const cuadro = document.getElementById("cuadroJuego")
+
 const ctx = cuadro.getContext("2d")
-const menu =document.querySelector(".botones")
+
+const menu = document.querySelector(".botones")
+
+const hide = document.querySelector(".ocultar")
+
+const gameOver = document.querySelector (".gameOver")
+
+const Tabla = document.querySelector(".tabla")
+
+tabla.setAttribute("border", "1", "white")
+
+const youWin = document.querySelector (".youWin")
+
+
 
 let requestReference 
 
@@ -14,9 +28,6 @@ let idCrearPepsi
 
 let idCrearRobots
 
-const gameOver = document.querySelector (".gameOver")
-
-const youWin = document.querySelector (".youWin")
 
 // Pausa
 let pausaBtn = document.getElementById("pausaToggle")
@@ -54,6 +65,14 @@ heart.src = "../Assets/Imagenes/HoverBoard.png"
 const martyD = new Image ()
 martyD.src = "../Assets/Imagenes/martys/martys/Marty1.png"
 
+const martyd1 = new Image ()
+martyd1.src = "../Assets/Imagenes/martys/martys/Marty22.png"
+
+const martyd2 = new Image ()
+martyd2.src = "../Assets/Imagenes/martys/martys/Marty33.png"
+
+const MartysD = [martyD,martyd1,martyd2]
+
 const martyI = new Image ()
 martyI.src = "../Assets/Imagenes/MartyAtras.png"
 
@@ -82,6 +101,8 @@ const explosion = new Image()
 explosion.src = "../Assets/Imagenes/Explosion.png"
 
 
+
+
 // Biff
 
 const biffs = []
@@ -106,7 +127,10 @@ const deloreans = []
 
 const pepsis = []
 
-
+// Puntaje
+function sumarPepsis (){
+    let total = marty.pepsi
+}
 
 
 // Personaje -Clase
@@ -120,7 +144,7 @@ class Marty {
         this.vy = 0
         this.velocidad = 15;
         this.kills = 0;
-        this.vidas = 4
+        this.vidas = 1
         this.img = martyD
         this.pepsi = 0
 
@@ -151,11 +175,7 @@ class Marty {
         this.img = martyI
         
     }
-    salto(){
-        this.y -= 5
-        
-    }
-
+  
    
     
 }
@@ -265,8 +285,8 @@ class Delorean {
         }
 }
 
-    // Pepsi - Clase
-    class Pepsi {
+ // Pepsi - Clase
+class Pepsi {
         constructor(x,y){
             this.x = x
             this.y = y
@@ -280,7 +300,7 @@ class Delorean {
                 this.img = explosion
             }
         }
-    }
+ }
 
 
 // Instancias 
@@ -295,9 +315,6 @@ document.addEventListener('keydown', (evento) => {
             break;
         case "ArrowLeft":
             marty.atras()
-            break;
-        case "ArrowUp":
-            marty.salto()
             break;
         case " ":
             if (guitarras.length < 2)
@@ -318,7 +335,7 @@ function empezarJuego (){
         // Game Over
         if (marty.vidas === 0){
             setGameOver()
-        } else if(marty.pepsi === 1){
+        } else if(marty.pepsi === 10){
             setWin()
         }
 
@@ -561,9 +578,10 @@ function creacionPepsi (){
 
 // Game Over
 function setGameOver(){
-    cuadro.setAttribute("class", "none")
-    menu.setAttribute( "class","none")
+    hide.setAttribute("class", "none")
+    // menu.setAttribute( "class","none")
     gameOver.removeAttribute("class","none")
+    // Tabla.removeAttribute("class", "none")
 }
 
 // You Win
