@@ -15,12 +15,12 @@
 </head>
 <body>
 
-    <div class="ocultar"> 
+    <div class="ocultar esconder"> 
         <div class="botones">
-            <button id="jugar">Jugar</button>
-            <button id="pausaToggle">Pausa</button>
+            <button class="btnJuego" id="jugar">Jugar</button>
+            <button class="btnPausa" id="pausaToggle">Pausa</button>
             <a href="../index.html">
-                <button id="inicio">Inicio</button>
+                <button class="btnInicio" id="inicio">Inicio</button>
             </a>
         </div>
     
@@ -42,16 +42,18 @@
     
 
     <div class="gameOver none">
-        <h2>Game Over</h2>
-        <a href="../index.html">
-            <button>Inicio</button>
-        </a>
-        <a href="../HTML/juego.html">
-            <button>Try Again</button>
-        </a>
-            <input id="txt" type="text"/>
-            <button id="btnAgregar">Agregar nombre</button>
-        
+        <h2 class="gameOverTitle">Game Over</h2>
+        <div class="botonesGameOver">
+            <a href="../index.html">
+                <button class="animate__flash_inicio">Inicio</button>
+            </a>
+            <a href="../HTML/juego.html">
+                <button class="animate__flash_Tr">Try Again</button>
+            </a>
+                <input id="txt" type="text"/>
+                <button id="btnAgregar" class="animate__flash_An">Agregar nombre</button>    
+        </div>
+       
             <div> 
                 <table id="tabla">
                     <thead id="head">
@@ -74,14 +76,14 @@
           </div>
     </div>
 
-    <div class="youWin none">
+    <!-- <div class="youWin none">
         <a href="../index.html">
             <button>Inicio</button>
             <a href="../HTML/juego.html">
                 <button>Try Again</button>
             </a>
         </a>
-    </div>
+    </div> -->
 
    
     <script src="../JS/background.js"></script>

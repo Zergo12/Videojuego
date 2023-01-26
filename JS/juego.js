@@ -12,7 +12,9 @@ const Tabla = document.querySelector(".tabla")
 
 tabla.setAttribute("border", "1", "white")
 
-const youWin = document.querySelector (".youWin")
+// const youWin = document.querySelector (".youWin")
+
+const esconder = document.getElementsByClassName("space")
 
 
 
@@ -28,6 +30,14 @@ let idCrearPepsi
 
 let idCrearRobots
 
+// Play
+
+// let jugarBtn = document.getElementById("jugar")
+
+// jugarBtn.addEventListener("", () => {
+//     if (jugarBtn.innerText === "Jugar")
+
+// })
 
 // Pausa
 let pausaBtn = document.getElementById("pausaToggle")
@@ -42,6 +52,7 @@ pausaBtn.addEventListener("click", () => {
         clearInterval(idCrearDelorean);
         clearInterval(idCrearPepsi);
         clearInterval(idCrearRobots);
+        inicio.pause()
     }  else {
         pausaBtn.innerText = "Pausa"
         empezarJuego();
@@ -51,8 +62,11 @@ pausaBtn.addEventListener("click", () => {
         creacionPepsi();
         creacionRobots();
         animate()
+        inicio.play()
     }
 })
+
+
 
 pausaBtn.addEventListener("focus", function(){
     this.blur()
@@ -585,12 +599,12 @@ function setGameOver(){
 }
 
 // You Win
-function setWin(){
-    cuadro.setAttribute("class", "none")
-    canvas.setAttribute("class", "none")
-    menu.setAttribute( "class","none")
-    youWin.removeAttribute("class", "none")
-    clearInterval(idCrearBiff)
-    clearInterval(idCrearBombas)
-    cancelAnimationFrame(requestRef)
-}
+// function setWin(){
+//     cuadro.setAttribute("class", "none")
+//     canvas.setAttribute("class", "none")
+//     menu.setAttribute( "class","none")
+//     youWin.removeAttribute("class", "none")
+//     clearInterval(idCrearBiff)
+//     clearInterval(idCrearBombas)
+//     cancelAnimationFrame(requestRef)
+// }

@@ -24,7 +24,7 @@ body{
     }
 
 canvas{
-    border: 2px solid #753ecc;
+    /* border: 2px solid #753ecc; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,9 +32,15 @@ canvas{
     height: 700px;
 }
 
-h2{
-    padding-top: 30px;
-    font-size: 30px;
+.gameOverTitle{
+    display: flex;
+    color: #00fff9 ;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 30px;
+    text-shadow: 3px 3px #00b8ff;
+    font-size: 40px;
 }
 
 #cuadroJuego{
@@ -49,6 +55,33 @@ h2{
     justify-content: center;
     align-self: center;
     padding: 30px;
+}
+
+.btnJuego:hover{
+    animation: flash;
+    animation-duration: 1s;
+
+}
+
+.btnPausa:hover{
+    animation: flash;
+    animation-duration: 1s; 
+}
+
+.btnInicio:hover{
+    animation: flash;
+    animation-duration: 1s;    
+}
+
+
+.animate__flash_inicio:hover{
+    animation: flash;
+    animation-duration: 1s;
+}
+
+.animate__flash_Tr:hover{
+    animation: flash;
+    animation-duration: 1s;
 }
 
  .none{
@@ -85,6 +118,7 @@ h2{
    border-radius: 10px;
    padding: 5px;
    color: #00fff9;
+   box-shadow: 1px 1px #00fff9;
 }
 
 #tabla{
@@ -93,16 +127,28 @@ h2{
     height: 80px;
     padding: 4px;
     text-shadow:  #753ecc;
+    border: 1px solid;
+    font-size: 20px;
+    border-color: transparent;
+    /* Verificar que funicione el display felx */
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  
 }
 
-/* #tbody{
-    height: 150px;
-    border: 1px solid white;
+th{
+    padding: 10px;
 }
 
-#head{
-    border: 1px solid white;
-} */
+td{
+    padding: 10px;
+}
 
 
-
+.botonesGameOver{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
