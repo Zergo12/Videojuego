@@ -348,9 +348,7 @@ function empezarJuego (){
         // Game Over
         if (marty.vidas === 0){
             setGameOver()
-        } else if(marty.pepsi === 10){
-            setWin()
-        }
+        } 
 
         
 
@@ -562,7 +560,7 @@ function creacionRobots (){
         const posY = Math.floor((Math.random() * 500 ) + 60)
         const c = new Robot (795, posY)
         robots.push(c)
-    },  Math.floor(Math.random() * (3400 - 2100) + 1000))
+    },  Math.floor(Math.random() * (4000 - 2100) + 1000))
 }
 
 // Generacion Bombas 

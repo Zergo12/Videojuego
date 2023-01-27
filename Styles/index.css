@@ -10,7 +10,7 @@ body{
     width: 100vw;
     height: 100vh;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size:cover;
     background-position: center;
 
 }
@@ -86,3 +86,4 @@ button{
     text-shadow: 2px 2px #00b8ff ;
     text-align: center;
 }
+
